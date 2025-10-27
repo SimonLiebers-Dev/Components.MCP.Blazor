@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Components.MCP.Blazor.Introspection;
+namespace Components.MCP.Blazor.Models;
 
 /// <summary>
 /// Represents a Blazor component and the parameters discovered via reflection.

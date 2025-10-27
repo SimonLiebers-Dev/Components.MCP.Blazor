@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Components.MCP.Blazor.Introspection;
+using Components.MCP.Blazor.Models;
 using DynamicHead.Blazor.Components;
 using ModelContextProtocol.Server;
 
@@ -14,14 +15,20 @@ public sealed class ComponentTool
     });
 
     [McpServerTool(Name = "components.list"), Description("List all available blazor components.")]
-    public List<string> ListComponents()
+    public List<ComponentSummary> ListComponents()
     {
         var components = _provider.GetComponents();
-        return components.Select(c => c.Name).ToList();
+        return components
+            .Select(c => new ComponentSummary
+            {
+                Name = c.Name,
+                Namespace = c.Namespace
+            })
+            .ToList();
     }
 
     [McpServerTool(Name = "component.details"),
-     Description("Shows details of a specific component by namspace and name of component.")]
+     Description("Shows details of a specific component by its full name.")]
     public ComponentMetadata? ShowComponentDetails(string componentNamespace, string componentName)
     {
         return _provider.GetComponent(componentNamespace, componentName);

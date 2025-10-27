@@ -1,10 +1,11 @@
 using System.Reflection;
 using System.Text;
+using Components.MCP.Blazor.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace Components.MCP.Blazor.Introspection;
 
-public sealed class ComponentMetadataProvider(ComponentDiscoveryOptions? options = null)
+public sealed class ComponentMetadataProvider(ComponentDiscoveryOptions? options = null) : IComponentMetadataProvider
 {
     private static readonly Dictionary<Type, string> TypeAliases = new()
     {
